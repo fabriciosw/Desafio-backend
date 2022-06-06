@@ -7,4 +7,9 @@ export default class UserRepository extends Repository<User> {
     const user = this.findOne({ where: { id } });
     return user;
   }
+
+  public findByCPF(cpf: number): Promise<User | undefined> {
+    const user = this.findOne({ where: { cpf } });
+    return user;
+  }
 }

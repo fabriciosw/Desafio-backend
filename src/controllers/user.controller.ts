@@ -40,6 +40,7 @@ export async function listUsers(request: Request, response: Response) {
       obs: user.obs,
       cpf: user.cpf,
       permission: user.permission,
+      // password: user.password,
     };
 
     return publicData;
@@ -69,7 +70,7 @@ export async function editUser(request: Request, response: Response) {
     permission,
   });
 
-  response.status(StatusCodes.OK).json('ok');
+  response.status(StatusCodes.OK).json('User updated');
 }
 
 export async function deleteUser(request: Request, response: Response) {

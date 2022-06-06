@@ -1,12 +1,5 @@
 import { Router } from 'express';
-import {
-  createUser,
-  deleteUser,
-  editUser,
-  listUsers,
-} from '../../controllers/user.controller';
-import validateAdmin from '../../middlewares/validateAdmin';
-import validateUser from '../../middlewares/validateUser';
+import createSession from '../../controllers/session.controller';
 
 const routes = Router();
 
@@ -35,9 +28,6 @@ const routes = Router();
  *         description: Product not found
  */
 
-routes.route('/').post(validateAdmin, createUser);
-routes.route('/').get(validateUser, listUsers);
-routes.route('/:id').put(validateAdmin, editUser);
-routes.route('/:id').delete(validateAdmin, deleteUser);
+routes.route('/').post(createSession);
 
 export default routes;
