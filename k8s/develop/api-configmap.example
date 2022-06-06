@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-configmap
+  namespace: quickstart-nodejs-develop
+data:
+  NODE_ENV: 'development'
+  API_PORT: '3000'
+  # DB_HOST: 'mongodb://mongo-service:27017/quickstart-nodejs'
+  # FIREBASE_DB_URL: 'https://quickstart-9b625.firebaseio.com'
+  # EMAIL_ADMINISTRACAO: 'administrador@projeto'
+  # CHROME_BIN: '/usr/bin/chromium-browser'
+  # GOOGLE_APPLICATION_CREDENTIALS: '/usr/app/k8s/develop/files/firebase.json'
+  # REDIS_HOST: 'redis-service.quickstart.svc.cluster.local'
+  # REDIS_PORT: '6379'
+  # JOB_CRON: '0 */20 * * *'
+  # PAGARME_TRANSFER_INTERVAL: 'monthly'
+  # PAGARME_TRANSFER_DAY: '10'
+  # PAGARME_TRANSFER_ENABLED: 'false'
+  # PUBLIC_API_URL: https://api.develop.quickstart.com
+  # NODEMAILER_HOST: 'smtp.gmail.com'
+  # NODEMAILER_PORT: '465'
+  # NODEMAILER_USER: 'quickstart@quickstart.com'

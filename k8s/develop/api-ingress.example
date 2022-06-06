@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: quickstart-ingress-$BRANCH
+  namespace: quickstart
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 25m
+spec:
+  rules:
+    - host: quickstart-${BRANCH}.ingress.softdesign-rs.com.br
+      http:
+        paths:
+          - backend:
+              serviceName: quickstart-service-${BRANCH}
+              servicePort: 3000
+            path: /
+    - host: quickstart-${BRANCH}.softdesign-rs.com.br
+      http:
+        paths:
+          - backend:
+              serviceName: quickstart-service-${BRANCH}
+              servicePort: 3000
+            path: /
