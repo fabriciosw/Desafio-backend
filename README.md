@@ -2,12 +2,6 @@
   <img src="https://softdesign.com.br/wp-content/themes/bones/library/images/logotipo.svg" alt="Softdesign logo" />
 </p>
 
-# :rocket: Quickstart NodeJS + Typescript
-
-Esse projeto foi criado utilizando o framework [express]('https://expressjs.com/pt-br/').
-
-Esse projeto contém todos os scripts do [express]('https://expressjs.com/pt-br/') com configurações adicionais de [typescript]('https://www.typescriptlang.org/'), [eslint](https://eslint.org/), [prettier](https://prettier.io/), e [husky](https://typicode.github.io/husky/#/).
-
 ### :wink: Antes de iniciar o projeto
 
 Verifique se o NodeJS instalado em sua máquina está na versão 14 ou superior. Digite no terminal o seguinte comando:
@@ -20,11 +14,15 @@ Mais informações: [site oficial](https://nodejs.org/en/).
 
 ### :fire: Iniciando o projeto
 
-`$ npm install`
+`$ yarn`
 
-Quando concluir a instalação das dependências, abra o projeto no seu editor, crie um arquivo `.env` com as mesmas informações do `.env.example` e peça as infomações com alguém da sua equipe para popular as variáveis.
+Quando concluir a instalação das dependências, abra o projeto no seu editor, crie um arquivo `.env` com as mesmas informações do `.env.example` para popular as suas variáveis locais.
 
-Após realizar essas alterações, digite no seu terminal `$ npm run dev:debug` que permite o debug pelo VSCode ou `$ npm run dev` apenas para executar o projeto e aguarde o seu projeto iniciar. :smile:
+Digite no seu terminal `$ yarn typeorm:run` para executar as migrations da API.
+
+Digite no seu terminal `$ yarn seed:run` para popular sua tabela com o primeiro usuário administrador.
+
+Após realizar essas alterações, digite no seu terminal `$ yarn dev` e aguarde o seu projeto iniciar :smile:
 
 ### :star: Configurações principais
 
