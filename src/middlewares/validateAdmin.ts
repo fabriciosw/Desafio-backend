@@ -8,7 +8,7 @@ export default function validateAdmin(
   request: Request,
   response: Response,
   next: NextFunction
-): void {
+): Response<any, Record<string, any>> | void {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -18,8 +18,8 @@ export default function validateAdmin(
   const [, token] = authHeader.split(' ');
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const decodedToken = verify(token, config.jwtSecret as Secret);
+    // não consegui tipar de forma que ele reconhecesse o decodedToken.auth, por isso usei any
+    const decodedToken: any = verify(token, config.jwtSecret as Secret);
 
     if (decodedToken.auth === 'true') {
       return next();

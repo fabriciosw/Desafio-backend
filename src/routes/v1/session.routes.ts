@@ -1,33 +1,42 @@
 import { Router } from 'express';
 import createSession from '../../controllers/session.controller';
+import validateResource from '../../middlewares/validateResource';
+import { createSessionSchema } from '../../schemas/session.schema';
 
 const routes = Router();
 
 /**
  * @openapi
- * '/api/products/{productId}':
- *  get:
+ * '/api/v1/session/':
+ *  post:
  *     tags:
- *     - Products
- *     summary: Get a single product by the productId
- *     security:
- *      - bearerAuth: []
- *     parameters:
- *      - name: productId
- *        in: path
- *        description: The id of the product
+ *     - Session
+ *     summary: Login user and create a jwt token
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Session'
+ *           example:
+ *             cpf: 12345678912
+ *             password: '12345'
+ *     body:
+ *      - name: cpf
+ *        description: The user's cpf
+ *        required: true
+ *      - name: password
+ *        description: The user's password
  *        required: true
  *     responses:
- *       200:
- *         description: Success
+ *       201:
+ *         description: Token Created
  *         content:
  *          application/json:
- *           schema:
- *              $ref: '#/components/schemas/Product'
- *       404:
- *         description: Product not found
+ *              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjoidHJ1ZSIsImlhdCI6MTY1NDYxNTMxMiwiZXhwIjoxNjU0NjE2MjEyLCJzdWIiOiIxIn0.kQ32ll3YjJzz8jh2-h6-DOtmxWdQTbsHpROSp8suoOo'
+ *       401:
+ *         description: Incorrect email/password combination.
  */
 
-routes.route('/').post(createSession);
+routes.route('/').post([validateResource(createSessionSchema)], createSession);
 
 export default routes;

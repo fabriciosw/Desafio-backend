@@ -19,7 +19,7 @@ class CreateSessionsService {
     if (!user) {
       throw new ApiError(
         StatusCodes.UNAUTHORIZED,
-        false,
+        true,
         'Incorrect email/password combination.'
       );
     }
@@ -29,7 +29,7 @@ class CreateSessionsService {
     if (!passwordConfirmed) {
       throw new ApiError(
         StatusCodes.UNAUTHORIZED,
-        false,
+        true,
         'Incorrect email/password combination.'
       );
     }

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 // import { verify } from 'jsonwebtoken';
 import CreateSessionsService from '../services/session.service';
 // import config from '../config/config';
@@ -16,7 +17,7 @@ export default async function createSession(
     password,
   });
 
-  return response.json(token);
+  return response.status(StatusCodes.CREATED).json(token);
 }
 
 // public async verify(request: Request, response: Response) {
