@@ -4,10 +4,10 @@ import { getCustomRepository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import UserRepository from '../database/repositories/user.repository';
 import config from '../config/config';
-import ApiError from '../utils/apiError.utils';
+import AppError from '../utils/AppError';
 
 export async function createUser(request: Request, response: Response) {
-  const { name, cpf, birthDate, password, obs } = request.body;
+  const { name, cpf, birthDate, password, obs, permission } = request.body;
 
   const usersRepository = getCustomRepository(UserRepository);
 
@@ -20,11 +20,12 @@ export async function createUser(request: Request, response: Response) {
     // mes-dia-ano
     password: hashedPassword,
     obs,
+    permission,
   });
 
   await usersRepository.save(user);
 
-  return response.status(StatusCodes.CREATED).json(user);
+  return response.status(StatusCodes.CREATED).json('Usuário criado');
 }
 
 export async function listUsers(request: Request, response: Response) {
@@ -58,10 +59,9 @@ export async function editUser(request: Request, response: Response) {
   const user = await usersRepository.findById(parseInt(id, 10));
 
   if (!user)
-    throw new ApiError(
-      StatusCodes.BAD_REQUEST,
-      true,
-      'There is no user with that id'
+    throw new AppError(
+      'There is no user with that id',
+      StatusCodes.BAD_REQUEST
     );
 
   await usersRepository.save({
@@ -80,10 +80,9 @@ export async function deleteUser(request: Request, response: Response) {
   const user = await usersRepository.findById(parseInt(id, 10));
 
   if (!user)
-    throw new ApiError(
-      StatusCodes.BAD_REQUEST,
-      true,
-      'There is no user with that id'
+    throw new AppError(
+      'There is no user with that id',
+      StatusCodes.BAD_REQUEST
     );
 
   await usersRepository.remove(user);

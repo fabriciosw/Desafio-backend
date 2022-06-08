@@ -4,7 +4,7 @@ import { Secret, sign } from 'jsonwebtoken';
 import { getCustomRepository } from 'typeorm';
 import config from '../config/config';
 import UsersRepository from '../database/repositories/user.repository';
-import ApiError from '../utils/apiError.utils';
+import AppError from '../utils/AppError';
 
 interface IRequest {
   cpf: number;
@@ -17,20 +17,18 @@ class CreateSessionsService {
     const user = await usersRepository.findByCPF(cpf);
 
     if (!user) {
-      throw new ApiError(
-        StatusCodes.UNAUTHORIZED,
-        true,
-        'Incorrect email/password combination.'
+      throw new AppError(
+        'Incorrect email/password combination.',
+        StatusCodes.UNAUTHORIZED
       );
     }
 
     const passwordConfirmed = await compare(password, user.password);
 
     if (!passwordConfirmed) {
-      throw new ApiError(
-        StatusCodes.UNAUTHORIZED,
-        true,
-        'Incorrect email/password combination.'
+      throw new AppError(
+        'Incorrect email/password combination.',
+        StatusCodes.UNAUTHORIZED
       );
     }
 

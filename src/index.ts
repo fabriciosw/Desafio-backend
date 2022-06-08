@@ -1,16 +1,17 @@
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 import cors from 'cors';
 import config, { environments } from './config/config';
 import logger from './config/logger';
-import database from './config/database';
 import routes from './routes';
 import swaggerDocs from './config/swagger';
 // import deserializeUser from './middlewares/deserializeUser';
 import AppError from './utils/AppError';
+import database from './config/database';
 
 const app = express();
 
@@ -25,6 +26,8 @@ if (config.env !== environments.PRODUCTION) {
   app.use(morgan('tiny'));
 }
 
+routes(app);
+
 app.use(
   (
     error: Error | AppError,
@@ -35,23 +38,21 @@ app.use(
   ) => {
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({
-        status: 'error',
+        status: error.statusCode,
         message: error.message,
       });
     }
     return response.status(500).json({
-      status: 'error',
+      status: 500,
       message: 'Internal server error',
     });
   }
 );
 
 app.listen(config.port, async () => {
-  logger.info(`API rodando em http://${config.publicUrl}:${config.port}`);
-
   await database();
 
-  routes(app);
+  logger.info(`API rodando em http://${config.publicUrl}:${config.port}`);
 
   if (config.env !== environments.PRODUCTION) {
     swaggerDocs(app, config.publicUrl, config.port);

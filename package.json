@@ -1,8 +1,8 @@
 {
   "name": "quickstart-node-typescript-api",
   "version": "1.0.0",
-  "description": "Quickstart NodeJs API com Typescript",
-  "projectPrefix": "quickstart",
+  "description": "Desafio Trainee 2022",
+  "projectPrefix": "desafio",
   "main": "index.js",
   "engines": {
     "npm": ">=6.0.0",

@@ -12,7 +12,8 @@ const routes = Router();
 
 /**
  * @openapi
- * '/api/products/{productId}':
+ *
+ * '/api/users/{userId}':
  *  get:
  *     tags:
  *     - Products
@@ -35,9 +36,11 @@ const routes = Router();
  *         description: Product not found
  */
 
-routes.route('/').post(validateAdmin, createUser);
-routes.route('/').get(validateUser, listUsers);
-routes.route('/:id').put(validateAdmin, editUser);
-routes.route('/:id').delete(validateAdmin, deleteUser);
+routes.route('/').post(validateAdmin, createUser).get(validateUser, listUsers);
+
+routes
+  .route('/:id')
+  .put(validateAdmin, editUser)
+  .delete(validateAdmin, deleteUser);
 
 export default routes;
