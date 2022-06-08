@@ -13,8 +13,8 @@ export default class User {
   @Column()
   public name: string;
 
-  @Column({ type: 'numeric', precision: 11 })
-  public cpf: number;
+  @Column({ length: 14 })
+  public cpf: string;
 
   @Column()
   public birthDate: Date;

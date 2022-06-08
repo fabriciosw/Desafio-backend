@@ -7,7 +7,7 @@ import UsersRepository from '../database/repositories/user.repository';
 import AppError from '../utils/AppError';
 
 interface IRequest {
-  cpf: number;
+  cpf: string;
   password: string;
 }
 

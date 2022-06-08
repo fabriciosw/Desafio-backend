@@ -1,4 +1,4 @@
-import { object, string, number, InferType } from 'yup';
+import { object, string, InferType } from 'yup';
 
 /**
  * @openapi
@@ -18,9 +18,7 @@ import { object, string, number, InferType } from 'yup';
 
 const payload = {
   body: object({
-    cpf: number()
-      .defined('CPF is required')
-      .typeError('Price must be a number'),
+    cpf: string().defined('CPF is required').length(14),
     password: string().defined('Password is required'),
   }).defined(),
 };

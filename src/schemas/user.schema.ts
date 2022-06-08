@@ -25,7 +25,7 @@ import { object, string, InferType, date, boolean } from 'yup';
 const create = {
   body: object({
     name: string().defined('Name is required').max(120),
-    cpf: string().defined('CPF is required').length(11),
+    cpf: string().defined('CPF is required').length(14),
     birthDate: date().defined('Birth date is required'),
     password: string().defined('Password is required'),
     obs: string().defined('Obs is required').max(500).default('-'),

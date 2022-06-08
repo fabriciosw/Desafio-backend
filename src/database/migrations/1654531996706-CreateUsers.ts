@@ -21,7 +21,7 @@ export class CreateUsers1654531996706 implements MigrationInterface {
           },
           {
             name: 'cpf',
-            type: 'numeric(11)',
+            type: 'varchar(14)',
             isNullable: false,
           },
           {

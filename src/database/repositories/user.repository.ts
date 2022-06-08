@@ -8,7 +8,7 @@ export default class UserRepository extends Repository<User> {
     return user;
   }
 
-  public findByCPF(cpf: number): Promise<User | undefined> {
+  public findByCPF(cpf: string): Promise<User | undefined> {
     const user = this.findOne({ where: { cpf } });
     return user;
   }

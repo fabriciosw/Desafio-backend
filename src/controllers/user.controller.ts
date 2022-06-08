@@ -25,7 +25,7 @@ export async function createUser(request: Request, response: Response) {
 
   await usersRepository.save(user);
 
-  return response.status(StatusCodes.CREATED).json('Usuário criado');
+  return response.status(StatusCodes.CREATED).json('User created');
 }
 
 export async function listUsers(request: Request, response: Response) {
@@ -41,7 +41,6 @@ export async function listUsers(request: Request, response: Response) {
       obs: user.obs,
       cpf: user.cpf,
       permission: user.permission,
-      // password: user.password,
     };
 
     return publicData;

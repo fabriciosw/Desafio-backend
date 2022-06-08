@@ -15,7 +15,7 @@ export default class CreateAdmin implements Seeder {
         .values([
           {
             name: 'Ademiro',
-            cpf: 12345678912,
+            cpf: '123.456.789-12',
             birthDate: '02/29/2020',
             password: await bcrypt.hash('12345', config.saltWorkFactor),
             obs: 'Ademiro master',
