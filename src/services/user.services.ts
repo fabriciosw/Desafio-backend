@@ -15,6 +15,10 @@ export async function createUserService(body: {
 }) {
   const usersRepository = getCustomRepository(UserRepository);
 
+  const userExists = await usersRepository.findByCPF(body.cpf);
+
+  if (userExists) return "There's already an user with this CPF";
+
   const hashedPassword = await bcrypt.hash(
     body.password,
     config.saltWorkFactor
@@ -26,6 +30,8 @@ export async function createUserService(body: {
   });
 
   await usersRepository.save(user);
+
+  return 'User created';
 }
 
 export async function listUsersService() {
@@ -33,7 +39,7 @@ export async function listUsersService() {
 
   const users = await usersRepository.find({ order: { created_at: 'ASC' } });
 
-  const response = users.map((user) => {
+  const data = users.map((user) => {
     const filteredData = {
       id: user.id,
       name: user.name,
@@ -46,7 +52,7 @@ export async function listUsersService() {
     return filteredData;
   });
 
-  return response;
+  return data;
 }
 
 export async function editUserService(

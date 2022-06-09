@@ -54,8 +54,14 @@ import { object, string, InferType, date, boolean } from 'yup';
 const create = {
   body: object({
     name: string().defined('Name is required').max(120),
-    cpf: string().defined('CPF is required').length(14), // check format
-    birthDate: date().defined('Birth date is required'), // check format
+    cpf: string()
+      .defined('CPF is required')
+      .length(14)
+      .matches(
+        /([0-9][0-9][0-9])\.([0-9][0-9][0-9])\.([0-9][0-9][0-9])-([0-9][0-9])/,
+        'CPF format is invalid'
+      ),
+    birthDate: date().defined('Birth date is required'),
     password: string().defined('Password is required'),
     obs: string().max(500),
     permission: boolean().defined('Permission is required'),

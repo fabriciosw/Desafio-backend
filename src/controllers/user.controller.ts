@@ -18,9 +18,9 @@ export async function createUser(
 ) {
   const { body } = request;
 
-  await createUserService(body);
+  const message = await createUserService(body);
 
-  return response.status(StatusCodes.CREATED).json('User created');
+  return response.status(StatusCodes.CREATED).json(message);
 }
 
 export async function listUsers(request: Request, response: Response) {
