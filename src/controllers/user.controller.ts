@@ -5,25 +5,28 @@ import bcrypt from 'bcrypt';
 import UserRepository from '../database/repositories/user.repository';
 import config from '../config/config';
 import AppError from '../utils/AppError';
+import {
+  CreateUserInput,
+  DeleteUserInput,
+  UpdateUserInput,
+} from '../schemas/user.schema';
 
-export async function createUser(request: Request, response: Response) {
-  const { name, cpf, birthDate, password, permission } = request.body;
-  let { obs } = request.body;
-
-  if (!obs) obs = '-';
+export async function createUser(
+  request: Request<{}, {}, CreateUserInput['body']>,
+  response: Response
+) {
+  const { body } = request;
 
   const usersRepository = getCustomRepository(UserRepository);
 
-  const hashedPassword = await bcrypt.hash(password, config.saltWorkFactor);
+  const hashedPassword = await bcrypt.hash(
+    body.password,
+    config.saltWorkFactor
+  );
 
   const user = usersRepository.create({
-    name,
-    cpf,
-    birthDate,
-    // mes-dia-ano
+    ...body,
     password: hashedPassword,
-    obs,
-    permission,
   });
 
   await usersRepository.save(user);
@@ -52,13 +55,16 @@ export async function listUsers(request: Request, response: Response) {
   response.status(StatusCodes.OK).json(data);
 }
 
-export async function editUser(request: Request, response: Response) {
-  const { id } = request.params;
-  const { permission, obs } = request.body;
+export async function editUser(
+  request: Request<UpdateUserInput['params'], {}, UpdateUserInput['body']>,
+  response: Response
+) {
+  const { params } = request;
+  const { body } = request;
 
   const usersRepository = getCustomRepository(UserRepository);
 
-  const user = await usersRepository.findById(parseInt(id, 10));
+  const user = await usersRepository.findById(parseInt(params.id, 10));
 
   if (!user)
     throw new AppError(
@@ -68,18 +74,20 @@ export async function editUser(request: Request, response: Response) {
 
   await usersRepository.save({
     ...user,
-    obs,
-    permission,
+    ...body,
   });
 
   response.status(StatusCodes.OK).json('User updated');
 }
 
-export async function deleteUser(request: Request, response: Response) {
-  const { id } = request.params;
+export async function deleteUser(
+  request: Request<DeleteUserInput['params'], {}, {}>,
+  response: Response
+) {
+  const { params } = request;
   const usersRepository = getCustomRepository(UserRepository);
 
-  const user = await usersRepository.findById(parseInt(id, 10));
+  const user = await usersRepository.findById(parseInt(params.id, 10));
 
   if (!user)
     throw new AppError(

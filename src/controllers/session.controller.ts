@@ -1,20 +1,20 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { CreateSessionInput } from '../schemas/session.schema';
 // import { verify } from 'jsonwebtoken';
 import CreateSessionsService from '../services/session.service';
 // import config from '../config/config';
 
 export default async function createSession(
-  request: Request,
+  request: Request<{}, {}, CreateSessionInput['body']>,
   response: Response
 ): Promise<Response> {
-  const { cpf, password } = request.body;
+  const { body } = request;
 
   const createSessionService = new CreateSessionsService();
 
   const token = await createSessionService.create({
-    cpf,
-    password,
+    ...body,
   });
 
   return response.status(StatusCodes.CREATED).json(token);
