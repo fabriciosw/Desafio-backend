@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://softdesign.com.br/wp-content/themes/bones/library/images/logotipo.svg" alt="Softdesign logo" />
-</p>
-
 ### :wink: Antes de iniciar o projeto
 
 Verifique se o NodeJS instalado em sua máquina está na versão 14 ou superior. Digite no terminal o seguinte comando:
@@ -23,6 +19,10 @@ Digite no seu terminal `$ yarn typeorm:run` para executar as migrations da API.
 Digite no seu terminal `$ yarn seed:run` para popular sua tabela com o primeiro usuário administrador.
 
 Após realizar essas alterações, digite no seu terminal `$ yarn dev` e aguarde o seu projeto iniciar :smile:
+
+O usuário padrão injetado pela seed é:
+CPF: 123.456.789-12
+Senha: 12345
 
 ### :star: Configurações principais
 
