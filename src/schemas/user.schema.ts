@@ -4,38 +4,67 @@ import { object, string, InferType, date, boolean } from 'yup';
  * @openapi
  * components:
  *   schemas:
- *     Product:
+ *     getUsers:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: number
+ *          name:
+ *            type: string
+ *          birthDate:
+ *            type: string
+ *          obs:
+ *            type: string
+ *          cpf:
+ *            type: string
+ *          permission:
+ *            type: boolean
+ *     createUser:
  *       type: object
  *       required:
- *        - title
- *        - description
- *        - price
- *        - image
+ *        - name
+ *        - cpf
+ *        - birthDate
+ *        - password
+ *        - permission
  *       properties:
- *         title:
+ *         name:
  *           type: string
- *         description:
+ *         cpf:
  *           type: string
- *         price:
- *           type: number
- *         image:
+ *         birthDate:
  *           type: string
+ *         password:
+ *           type: string
+ *         obs:
+ *           type: string
+ *         permission:
+ *           type: boolean
+ *     editUser:
+ *       type: object
+ *       required:
+ *        - permission
+ *       properties:
+ *         obs:
+ *           type: string
+ *         permission:
+ *           type: boolean
  */
 
 const create = {
   body: object({
     name: string().defined('Name is required').max(120),
-    cpf: string().defined('CPF is required').length(14),
-    birthDate: date().defined('Birth date is required'),
+    cpf: string().defined('CPF is required').length(14), // check format
+    birthDate: date().defined('Birth date is required'), // check format
     password: string().defined('Password is required'),
-    obs: string().defined('Obs is required').max(500).default('-'),
+    obs: string().max(500),
     permission: boolean().defined('Permission is required'),
   }).defined(),
 };
 
 const edit = {
   body: object({
-    obs: string().defined('Obs is required').max(500).default('-'),
+    obs: string().max(500),
     permission: boolean().defined('Permission is required'),
   }).defined(),
 };

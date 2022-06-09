@@ -18,7 +18,7 @@ const routes = Router();
  *           schema:
  *             $ref: '#/components/schemas/Session'
  *           example:
- *             cpf: 12345678912
+ *             cpf: '123.456.789-12'
  *             password: '12345'
  *     body:
  *      - name: cpf

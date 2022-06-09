@@ -7,7 +7,10 @@ import config from '../config/config';
 import AppError from '../utils/AppError';
 
 export async function createUser(request: Request, response: Response) {
-  const { name, cpf, birthDate, password, obs, permission } = request.body;
+  const { name, cpf, birthDate, password, permission } = request.body;
+  let { obs } = request.body;
+
+  if (!obs) obs = '-';
 
   const usersRepository = getCustomRepository(UserRepository);
 
@@ -51,7 +54,7 @@ export async function listUsers(request: Request, response: Response) {
 
 export async function editUser(request: Request, response: Response) {
   const { id } = request.params;
-  const { obs, permission } = request.body;
+  const { permission, obs } = request.body;
 
   const usersRepository = getCustomRepository(UserRepository);
 

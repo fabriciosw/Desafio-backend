@@ -11,7 +11,7 @@ import { object, string, InferType } from 'yup';
  *        - password
  *       properties:
  *         cpf:
- *           type: number
+ *           type: string
  *         password:
  *           type: string
  */
