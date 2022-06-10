@@ -3,22 +3,47 @@ import { object, string, InferType, date, boolean } from 'yup';
 /**
  * @openapi
  * components:
+ *   error:
+ *     InvalidJWT:
+ *        properties:
+ *            status:
+ *              type: number
+ *              example: 401
+ *            message:
+ *              type: string
+ *              example: Invalid JWT Token.
+ *     CpfDuplicated:
+ *        properties:
+ *            status:
+ *              type: number
+ *              example: 409
+ *            message:
+ *              type: string
+ *              example: There's already an user with that CPF
  *   schemas:
  *     getUsers:
- *        type: object
- *        properties:
- *          id:
- *            type: number
- *          name:
- *            type: string
- *          birthDate:
- *            type: string
- *          obs:
- *            type: string
- *          cpf:
- *            type: string
- *          permission:
- *            type: boolean
+ *        type: array
+ *        items:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: number
+ *              example: 0
+ *            name:
+ *              type: string
+ *              example: "Fabricio"
+ *            birthDate:
+ *              type: string
+ *              example: "2003-07-06T03:00:00.000Z"
+ *            obs:
+ *              type: string
+ *              example: "Fullstack dev"
+ *            cpf:
+ *              type: string
+ *              example: "111.111.111-11"
+ *            permission:
+ *              type: boolean
+ *              example: true
  *     createUser:
  *       type: object
  *       required:
@@ -30,16 +55,22 @@ import { object, string, InferType, date, boolean } from 'yup';
  *       properties:
  *         name:
  *           type: string
+ *           example: "Fabricio"
  *         cpf:
  *           type: string
+ *           example: "111.111.111-11"
  *         birthDate:
  *           type: string
+ *           example: "07/06/2003"
  *         password:
  *           type: string
+ *           example: "12345"
  *         obs:
  *           type: string
+ *           example: "Fullstack dev"
  *         permission:
  *           type: boolean
+ *           example: true
  *     editUser:
  *       type: object
  *       required:
@@ -47,8 +78,10 @@ import { object, string, InferType, date, boolean } from 'yup';
  *       properties:
  *         obs:
  *           type: string
+ *           example: "Fullstack dev"
  *         permission:
  *           type: boolean
+ *           example: true
  */
 
 const create = {

@@ -33,15 +33,12 @@ const routes = Router();
  *          application/json:
  *           schema:
  *              $ref: '#/components/schemas/getUsers'
- *           example:
- *             id: 0,
- *             name: "Fabricio"
- *             birthDate: "07/06/2003"
- *             obs: "Fullstack dev"
- *             cpf: "111.111.111-11"
- *             permission: true
  *       401:
  *         description: Invalid JWT Token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/error/InvalidJWT'
  *  post:
  *     tags:
  *     - Users
@@ -53,32 +50,6 @@ const routes = Router();
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/createUser'
- *           example:
- *            name: "Fabricio"
- *            cpf: "111.111.111-11"
- *            birthDate: "07/06/2003"
- *            password: "12345"
- *            obs: "Fullstack dev"
- *            permission: true
- *     body:
- *      - name: name
- *        description: The user's name
- *        required: true
- *      - name: cpf
- *        description: The user's CPF
- *        required: true
- *      - name: birthDate
- *        description: The user's birth date
- *        required: true
- *      - name: password
- *        description: The user's password
- *        required: true
- *      - name: obs
- *        description: The user's optional info
- *        required: false
- *      - name: permission
- *        description: The user's permission
- *        required: true
  *     responses:
  *       201:
  *         description: Success
@@ -88,6 +59,22 @@ const routes = Router();
  *             "User created"
  *       401:
  *         description: Invalid JWT Token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/error/InvalidJWT'
+ *       400:
+ *         description: Bad Request.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               example: ["Name is required", "CPF is required", "Birth date is required", "Password is required", "Permission is required"]
+ *       409:
+ *         description: There's already an user with that CPF
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/error/CpfDuplicated'
  * '/api/v1/users/{userId}':
  *  put:
  *     tags:
@@ -105,16 +92,6 @@ const routes = Router();
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/editUser'
- *           example:
- *            obs: "Fullstack dev"
- *            permission: true
- *     body:
- *      - name: obs
- *        description: The user's optional info
- *        required: false
- *      - name: permission
- *        description: The user's permission
- *        required: true
  *     responses:
  *       200:
  *         description: Success
@@ -122,8 +99,18 @@ const routes = Router();
  *          application/json:
  *           example:
  *             "User updated"
+ *       400:
+ *         description: Bad Request.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               example: ["Permission is required"]
  *       401:
  *         description: Invalid JWT Token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/error/InvalidJWT'
  *  delete:
  *     tags:
  *     - Users
@@ -144,6 +131,10 @@ const routes = Router();
  *             "User deleted"
  *       401:
  *         description: Invalid JWT Token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/error/InvalidJWT'
  */
 
 routes

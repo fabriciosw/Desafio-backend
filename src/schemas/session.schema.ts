@@ -14,6 +14,15 @@ import { object, string, InferType } from 'yup';
  *           type: string
  *         password:
  *           type: string
+ *   error:
+ *     InvalidCredentials:
+ *       properties:
+ *         status:
+ *           type: number
+ *           example: 401
+ *         message:
+ *           type: string
+ *           example: Incorrect email/password combination.
  */
 
 const payload = {

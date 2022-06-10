@@ -35,6 +35,16 @@ const routes = Router();
  *              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjoidHJ1ZSIsImlhdCI6MTY1NDYxNTMxMiwiZXhwIjoxNjU0NjE2MjEyLCJzdWIiOiIxIn0.kQ32ll3YjJzz8jh2-h6-DOtmxWdQTbsHpROSp8suoOo'
  *       401:
  *         description: Incorrect email/password combination.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/error/InvalidCredentials'
+ *       400:
+ *         description: Bad Request.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               example: ["CPF is required", "Password is required"]
  */
 
 routes.route('/').post([validateResource(createSessionSchema)], createSession);

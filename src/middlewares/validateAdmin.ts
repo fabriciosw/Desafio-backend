@@ -12,7 +12,7 @@ export default function validateAdmin(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new AppError('JWT Token is missing.');
+    throw new AppError('JWT Token is missing.', StatusCodes.UNAUTHORIZED);
   }
 
   const [, token] = authHeader.split(' ');
@@ -26,6 +26,6 @@ export default function validateAdmin(
     }
     return response.status(StatusCodes.UNAUTHORIZED).json('UNAUTHORIZED');
   } catch (error) {
-    throw new AppError('Invalid JWT Token.');
+    throw new AppError('Invalid JWT Token.', StatusCodes.UNAUTHORIZED);
   }
 }
