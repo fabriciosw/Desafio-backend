@@ -17,7 +17,11 @@ export async function createUserService(body: {
 
   const userExists = await usersRepository.findByCPF(body.cpf);
 
-  if (userExists) return "There's already an user with this CPF";
+  if (userExists)
+    throw new AppError(
+      "There's already an user with that CPF",
+      StatusCodes.CONFLICT
+    );
 
   const hashedPassword = await bcrypt.hash(
     body.password,
@@ -30,8 +34,6 @@ export async function createUserService(body: {
   });
 
   await usersRepository.save(user);
-
-  return 'User created';
 }
 
 export async function listUsersService() {
