@@ -90,10 +90,7 @@ const create = {
     cpf: string()
       .defined('CPF is required')
       .length(14)
-      .matches(
-        /([0-9][0-9][0-9])\.([0-9][0-9][0-9])\.([0-9][0-9][0-9])-([0-9][0-9])/,
-        'CPF format is invalid'
-      ),
+      .matches(/(\d\d\d)\.(\d\d\d)\.(\d\d\d)-(\d\d)/, 'CPF format is invalid'),
     birthDate: date().defined('Birth date is required'),
     password: string().defined('Password is required'),
     obs: string().max(500),
