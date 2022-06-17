@@ -27,7 +27,10 @@ import { object, string, InferType } from 'yup';
 
 const payload = {
   body: object({
-    cpf: string().defined('CPF is required').length(14),
+    cpf: string()
+      .defined('CPF is required')
+      .length(14)
+      .matches(/(\d\d\d)\.(\d\d\d)\.(\d\d\d)-(\d\d)/, 'CPF format is invalid'),
     password: string().defined('Password is required'),
   }).defined(),
 };

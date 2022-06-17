@@ -11,7 +11,7 @@ import { object, string, InferType, date, boolean } from 'yup';
  *              example: 401
  *            message:
  *              type: string
- *              example: Invalid JWT Token.
+ *              example: Invalid JWT Token. / JWT Token is missing.
  *     CpfDuplicated:
  *        properties:
  *            status:

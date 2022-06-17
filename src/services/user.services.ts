@@ -34,6 +34,18 @@ export async function createUserService(body: {
   });
 
   await usersRepository.save(user);
+
+  const DTO = {
+    id: user.id,
+    name: user.name,
+    cpf: user.cpf,
+    birthDate: user.birthDate,
+    permission: user.permission,
+    obs: user.obs,
+    created_at: user.created_at,
+  };
+
+  return DTO;
 }
 
 export async function listUsersService() {

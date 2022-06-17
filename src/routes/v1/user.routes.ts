@@ -56,7 +56,7 @@ const routes = Router();
  *         content:
  *          application/json:
  *           example:
- *             "User created"
+ *             "User 0 created"
  *       401:
  *         description: Invalid JWT Token
  *         content:
@@ -139,12 +139,12 @@ const routes = Router();
 
 routes
   .route('/')
-  .post([validateResource(createUserSchema), validateAdmin], createUser)
+  .post([validateAdmin, validateResource(createUserSchema)], createUser)
   .get(validateUser, listUsers);
 
 routes
   .route('/:id')
-  .put([validateResource(updateUserSchema), validateAdmin], editUser)
-  .delete([validateResource(deleteUserSchema), validateAdmin], deleteUser);
+  .put([validateAdmin, validateResource(updateUserSchema)], editUser)
+  .delete([validateAdmin, validateResource(deleteUserSchema)], deleteUser);
 
 export default routes;

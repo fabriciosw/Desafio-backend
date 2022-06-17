@@ -44,7 +44,7 @@ const routes = Router();
  *         content:
  *           application/json:
  *             schema:
- *               example: ["CPF is required", "Password is required"]
+ *               example: ["CPF is required", "Password is required", "CPF format is invalid", "body.cpf must be exactly 14 characters"]
  */
 
 routes.route('/').post([validateResource(createSessionSchema)], createSession);

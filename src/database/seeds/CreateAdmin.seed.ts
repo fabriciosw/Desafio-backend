@@ -21,6 +21,14 @@ export default class CreateAdmin implements Seeder {
             obs: 'Ademiro master',
             permission: true,
           },
+          {
+            name: 'Jocas',
+            cpf: '222.222.222-44',
+            birthDate: '02/29/2020',
+            password: await bcrypt.hash('12345', config.saltWorkFactor),
+            obs: 'Jocas faxineiro',
+            permission: false,
+          },
         ])
         .execute();
     }
