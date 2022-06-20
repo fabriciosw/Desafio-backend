@@ -78,10 +78,10 @@ import { object, string, InferType, date, boolean } from 'yup';
  *       properties:
  *         obs:
  *           type: string
- *           example: "Fullstack dev"
+ *           example: "Trainne"
  *         permission:
  *           type: boolean
- *           example: true
+ *           example: false
  */
 
 const create = {

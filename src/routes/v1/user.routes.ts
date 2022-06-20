@@ -56,7 +56,15 @@ const routes = Router();
  *         content:
  *          application/json:
  *           example:
- *             "User 0 created"
+ *             message: User created
+ *             user:
+ *              id: 3
+ *              name: Fabricio
+ *              cpf: 111.111.111-11
+ *              birthDate: 06/07/2003
+ *              permission: true
+ *              obs: Fullstack dev
+ *              created_at: 2022-06-20T15:07:49.118Z
  *       401:
  *         description: Invalid JWT Token
  *         content:
@@ -79,7 +87,7 @@ const routes = Router();
  *  put:
  *     tags:
  *     - Users
- *     summary: Edit user's Obs and permission
+ *     summary: Edit user's obs and permission
  *     parameters:
  *      - name: userId
  *        in: path
@@ -98,7 +106,10 @@ const routes = Router();
  *         content:
  *          application/json:
  *           example:
- *             "User updated"
+ *             message: "User updated"
+ *             update:
+ *              permission: false
+ *              obs: "ffa"
  *       400:
  *         description: Bad Request.
  *         content:
@@ -123,12 +134,8 @@ const routes = Router();
  *     security:
  *      - bearerAuth: []
  *     responses:
- *       200:
- *         description: Success
- *         content:
- *          application/json:
- *           example:
- *             "User deleted"
+ *       204:
+ *         description: Deleted
  *       401:
  *         description: Invalid JWT Token
  *         content:

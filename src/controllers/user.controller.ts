@@ -20,7 +20,9 @@ export async function createUser(
 
   const DTO = await createUserService(body);
 
-  return response.status(StatusCodes.CREATED).json({ ...DTO });
+  return response
+    .status(StatusCodes.CREATED)
+    .json({ message: 'User created', user: DTO });
 }
 
 export async function listUsers(request: Request, response: Response) {
@@ -37,7 +39,9 @@ export async function editUser(
 
   await editUserService(params.id, body);
 
-  response.status(StatusCodes.OK).json('User updated');
+  response
+    .status(StatusCodes.OK)
+    .json({ message: 'User updated', update: body });
 }
 
 export async function deleteUser(
@@ -48,7 +52,5 @@ export async function deleteUser(
 
   await deleteUserService(params.id);
 
-  return response
-    .status(StatusCodes.NO_CONTENT)
-    .json({ message: 'User deleted', id: params.id });
+  return response.status(StatusCodes.NO_CONTENT).json();
 }

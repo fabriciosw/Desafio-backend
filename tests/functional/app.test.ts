@@ -60,16 +60,17 @@ describe('Session', () => {
       password: '12345',
     });
     // a token is always 160 characters long
-    expect(response.body).toHaveLength(160);
+    expect(response.body.token).toHaveLength(160);
+    expect(response.body.message).toBe('Logged in');
     expect(response.status).toBe(201);
 
-    token = `bearer ${response.body}`;
+    token = `bearer ${response.body.token}`;
 
     const { body } = await request(app).post(`/api/v1/session/`).send({
       cpf: '222.222.222-44',
       password: '12345',
     });
-    noPermissionToken = `bearer ${body}`;
+    noPermissionToken = `bearer ${body.token}`;
   });
 });
 
@@ -188,14 +189,15 @@ describe('Users', () => {
         })
         .set('Authorization', token);
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('name');
-      expect(response.body).toHaveProperty('cpf');
-      expect(response.body).toHaveProperty('birthDate');
-      expect(response.body).toHaveProperty('permission');
-      expect(response.body).toHaveProperty('created_at');
+      expect(response.body.message).toBe('User created');
+      expect(response.body.user).toHaveProperty('id');
+      expect(response.body.user).toHaveProperty('name');
+      expect(response.body.user).toHaveProperty('cpf');
+      expect(response.body.user).toHaveProperty('birthDate');
+      expect(response.body.user).toHaveProperty('permission');
+      expect(response.body.user).toHaveProperty('created_at');
 
-      userId = response.body.id;
+      userId = response.body.user.id;
     });
   });
   describe('delete /api/v1/users', () => {

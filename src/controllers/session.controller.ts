@@ -15,5 +15,7 @@ export default async function createSession(
     ...body,
   });
 
-  return response.status(StatusCodes.CREATED).json(token);
+  return response
+    .status(StatusCodes.CREATED)
+    .json({ message: 'Logged in', token });
 }
