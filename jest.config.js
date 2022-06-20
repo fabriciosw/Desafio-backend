@@ -10,4 +10,9 @@ module.exports = {
   resetMocks: true,
   restoreMocks: true,
   testTimeout: 20000,
+  // collectCoverage: true,
+  // collectCoverageFrom: [
+  //   '<rootDir>/src/controllers/*.ts', '<rootDir>/src/routes/**/*.ts', '<rootDir>/src/services/**/*.ts'
+  // ],
+  // coverageProvider: 'v8',
 };

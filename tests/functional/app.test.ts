@@ -103,6 +103,7 @@ describe('Users', () => {
       expect(response.body).toBeInstanceOf(Array<Object>);
     });
   });
+
   let userId: number;
   describe('post /api/v1/users', () => {
     it('should ask for a token', async () => {
@@ -122,16 +123,6 @@ describe('Users', () => {
 
       expect(response.status).toBe(401);
       expect(response.body.message).toStrictEqual('Invalid JWT Token.');
-    });
-
-    it('should receive an admin token', async () => {
-      const response = await request(app)
-        .post(`/api/v1/users`)
-        .send({})
-        .set('Authorization', noPermissionToken);
-
-      expect(response.status).toBe(401);
-      expect(response.body).toStrictEqual('UNAUTHORIZED');
     });
 
     it('should receive an admin token', async () => {
@@ -200,9 +191,10 @@ describe('Users', () => {
       userId = response.body.user.id;
     });
   });
-  describe('delete /api/v1/users', () => {
+
+  describe('put api/v1/users/{userId}', () => {
     it('should ask for a token', async () => {
-      const response = await request(app).post(`/api/v1/users`);
+      const response = await request(app).put(`/api/v1/users/${userId}`);
 
       expect(response.status).toBe(401);
       expect(response.body.message).toStrictEqual('JWT Token is missing.');
@@ -210,7 +202,7 @@ describe('Users', () => {
 
     it('should ask for a valid token', async () => {
       const response = await request(app)
-        .post(`/api/v1/users`)
+        .put(`/api/v1/users/${userId}`)
         .set(
           'Authorization',
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjoidHJ1ZSIsImlhdCI6MTY1NTQ4NzEwMywiZXhwIjoxNjU1NDk3OTAzLCJzdWIiOiIxIn0.tRYnuxFXxfnk5dE9bScuDBQ4DUfeAGl57PLyO7EonPl'
@@ -222,7 +214,58 @@ describe('Users', () => {
 
     it('should receive an admin token', async () => {
       const response = await request(app)
-        .post(`/api/v1/users`)
+        .put(`/api/v1/users/${userId}`)
+        .send({})
+        .set('Authorization', noPermissionToken);
+
+      expect(response.status).toBe(401);
+      expect(response.body).toStrictEqual('UNAUTHORIZED');
+    });
+
+    it('should ask for a valid body', async () => {
+      const response = await request(app)
+        .put(`/api/v1/users/${userId}`)
+        .send({})
+        .set('Authorization', token);
+      expect(response.status).toBe(400);
+      expect(response.body).toStrictEqual(['Permission is required']);
+    });
+
+    it("should update user's info", async () => {
+      const response = await request(app)
+        .put(`/api/v1/users/${userId}`)
+        .send({ obs: 'Trainee', permission: true })
+        .set('Authorization', token);
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('User updated');
+      expect(response.body.update.permission).toBe(true);
+      expect(response.body.update.obs).toBe('Trainee');
+    });
+  });
+
+  describe('delete /api/v1/users/{userId}', () => {
+    it('should ask for a token', async () => {
+      const response = await request(app).delete(`/api/v1/users/${userId}`);
+
+      expect(response.status).toBe(401);
+      expect(response.body.message).toStrictEqual('JWT Token is missing.');
+    });
+
+    it('should ask for a valid token', async () => {
+      const response = await request(app)
+        .delete(`/api/v1/users/${userId}`)
+        .set(
+          'Authorization',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjoidHJ1ZSIsImlhdCI6MTY1NTQ4NzEwMywiZXhwIjoxNjU1NDk3OTAzLCJzdWIiOiIxIn0.tRYnuxFXxfnk5dE9bScuDBQ4DUfeAGl57PLyO7EonPl'
+        );
+
+      expect(response.status).toBe(401);
+      expect(response.body.message).toStrictEqual('Invalid JWT Token.');
+    });
+
+    it('should receive an admin token', async () => {
+      const response = await request(app)
+        .delete(`/api/v1/users/${userId}`)
         .send({})
         .set('Authorization', noPermissionToken);
 
