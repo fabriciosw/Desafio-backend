@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { Secret, verify } from 'jsonwebtoken';
+import { JwtPayload, Secret, verify } from 'jsonwebtoken';
 import config from '../config/config';
 import AppError from '../utils/AppError';
 
@@ -18,9 +18,10 @@ export default function validateAdmin(
   const [, token] = authHeader.split(' ');
 
   try {
-    // não consegui tipar de forma que ele reconhecesse o decodedToken.auth, por isso usei any
-    const decodedToken: any = verify(token, config.jwtSecret as Secret);
-
+    const decodedToken = verify(
+      token,
+      config.jwtSecret as Secret
+    ) as JwtPayload;
     if (decodedToken.auth === 'true') {
       return next();
     }
