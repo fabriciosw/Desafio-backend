@@ -51,22 +51,12 @@ export async function createUserService(body: {
 export async function listUsersService() {
   const usersRepository = getCustomRepository(UserRepository);
 
-  const users = await usersRepository.find({ order: { created_at: 'ASC' } });
-
-  const data = users.map((user) => {
-    const filteredData = {
-      id: user.id,
-      name: user.name,
-      birthDate: user.birthDate,
-      obs: user.obs,
-      cpf: user.cpf,
-      permission: user.permission,
-    };
-
-    return filteredData;
+  const users = await usersRepository.find({
+    order: { created_at: 'ASC' },
+    select: ['id', 'name', 'birthDate', 'obs', 'cpf', 'permission'],
   });
 
-  return data;
+  return users;
 }
 
 export async function editUserService(
